@@ -21,6 +21,5 @@ public class Currency {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @UpdateTimestamp
     private Date updateDate;
-    private Float rate = 0.0f;
-
+    private Double rate = 0.0d;
 }
