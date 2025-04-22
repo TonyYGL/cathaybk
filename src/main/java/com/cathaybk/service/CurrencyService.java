@@ -1,6 +1,7 @@
 package com.cathaybk.service;
 
 import com.cathaybk.dao.CurrencyRepository;
+import com.cathaybk.dto.CurrencyRequest;
 import com.cathaybk.entity.Currency;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,31 @@ public class CurrencyService {
         return repository.findByCode(code);
     }
 
+    public List<Currency> findByCodes(List<String> codes) {
+        return repository.findByCodeIn(codes);
+    }
+
     public Optional<Currency> findById(Long id) {
         return repository.findById(id);
     }
 
-    public Currency add(Currency currency) {
+    public Currency add(CurrencyRequest currencyRequest) {
+        Currency currency = new Currency();
+        currency.setCode(currencyRequest.getCode());
+        currency.setName(currencyRequest.getName());
+        return repository.save(currency);
+    }
+
+    public Currency updateCurrency(CurrencyRequest currencyRequest) {
+        Optional<Currency> optional = repository.findById(currencyRequest.getId());
+        if (optional.isPresent() == false) {
+            return null;
+        }
+
+        Currency currency = optional.get();
+        currency.setCode(currencyRequest.getCode());
+        currency.setName(currencyRequest.getName());
+
         return repository.save(currency);
     }
 
