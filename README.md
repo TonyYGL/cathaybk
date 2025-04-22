@@ -1,4 +1,11 @@
-# 幣別對應表資料
+# 初始化幣別對應表資料 (data.sql)
+```
+INSERT INTO currency (name, code) VALUES ('美元', 'USD');
+INSERT INTO currency (name, code) VALUES ('歐元', 'EUR');
+INSERT INTO currency (name, code) VALUES ('英鎊', 'GBP');
+```
+
+# 幣別對應表CRUD
 - 顯示所有幣別
 ```
 curl --location 'http://localhost:8080/currency/all'
