@@ -3,6 +3,8 @@ package com.cathaybk.service;
 import com.cathaybk.dao.CurrencyRepository;
 import com.cathaybk.dto.CurrencyRequest;
 import com.cathaybk.entity.Currency;
+import com.cathaybk.enums.ErrorEnum;
+import com.cathaybk.exception.CustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +44,7 @@ public class CurrencyService {
     public Currency updateCurrency(CurrencyRequest currencyRequest) {
         Optional<Currency> optional = repository.findById(currencyRequest.getId());
         if (optional.isPresent() == false) {
-            return null;
+            throw new CustomerException(ErrorEnum.CURRENCY_NOT_FOUND.getErrorCode(), ErrorEnum.CURRENCY_NOT_FOUND.getErrorMsg());
         }
 
         Currency currency = optional.get();

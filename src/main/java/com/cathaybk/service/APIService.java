@@ -2,6 +2,8 @@ package com.cathaybk.service;
 
 import com.cathaybk.dto.BitcoinResponse;
 import com.cathaybk.entity.Currency;
+import com.cathaybk.enums.ErrorEnum;
+import com.cathaybk.exception.CustomerException;
 import com.cathaybk.util.DateUtil;
 import com.cathaybk.vo.BitcoinVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,14 @@ public class APIService {
 
     public BitcoinVo getBitcoinVo() {
         BitcoinResponse response = getBitcoinData();
+        if (response == null) {
+            throw new CustomerException(ErrorEnum.API_ERROR.getErrorCode(), ErrorEnum.API_ERROR.getErrorMsg());
+        }
 
+        return transformData(response);
+    }
+
+    public BitcoinVo transformData(BitcoinResponse response) {
         BitcoinVo bitcoinVo = new BitcoinVo();
         bitcoinVo.setUpdateTime(DateUtil.parseToDate(response.getTime().getUpdated()));
 
