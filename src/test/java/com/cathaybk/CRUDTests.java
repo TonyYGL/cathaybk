@@ -1,5 +1,6 @@
 package com.cathaybk;
 
+import com.cathaybk.dto.CurrencyRequest;
 import com.cathaybk.entity.Currency;
 import com.cathaybk.service.CurrencyService;
 import org.junit.jupiter.api.Assertions;
@@ -37,21 +38,21 @@ public class CRUDTests {
 
     @Test
     public void addCurrencyTest() {
-        Currency currency = new Currency();
+        CurrencyRequest currency = new CurrencyRequest();
         currency.setName("台幣");
         currency.setCode("TWD");
-        currencyService.add(currency);
-        Assertions.assertEquals(3, currency.getId());
+        Currency addCurrency = currencyService.add(currency);
+
+        Assertions.assertEquals(4, addCurrency.getId());
     }
     
     @Test
     public void updateTest() {
-        Currency currency = currencyService.findByCode("USD");
-        currency.setRate(88.888d);
-        long id = currency.getId();
-        currencyService.add(currency);
-        Optional<Currency> optionalCurrency = currencyService.findById(id);
-        Assertions.assertTrue(optionalCurrency.isPresent());
-        Assertions.assertEquals(88.888d, optionalCurrency.get().getRate());
+        CurrencyRequest currency = new CurrencyRequest();
+        currency.setId(1L);
+        currency.setName("美元-");
+        currency.setCode("USD-");
+        Currency updatedCurrency = currencyService.updateCurrency(currency);
+        Assertions.assertEquals("美元-", updatedCurrency.getName());
     }
 }

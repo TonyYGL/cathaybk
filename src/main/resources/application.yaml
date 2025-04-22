@@ -12,3 +12,6 @@ spring:
       ddl-auto: update
     show-sql: true
     defer-datasource-initialization: true
+
+coindesk:
+  url: https://kengp3.github.io/blog/coindesk.json
