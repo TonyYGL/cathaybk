@@ -1,5 +1,6 @@
 package com.cathaybk.controller;
 
+import com.cathaybk.dto.BitcoinResponse;
 import com.cathaybk.service.APIService;
 import com.cathaybk.vo.BitcoinVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,13 @@ public class APIController {
     @Autowired
     private APIService apiService;
 
-    @GetMapping("/bitcoinDetails")
-    public BitcoinVo getCoinDeskData() {
+    @GetMapping("/coindesk")
+    public BitcoinResponse getCoinDeskData() {
+        return apiService.getBitcoinData();
+    }
+
+    @GetMapping("/transformCoindesk")
+    public BitcoinVo transformCoindesk() {
         return apiService.getBitcoinVo();
     }
 
